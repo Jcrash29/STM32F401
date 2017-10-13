@@ -91,12 +91,10 @@ main(int argc, char* argv[])
   // Infinite loop
   while (1)
     {
-	    HAL_GPIO_WritePin(GPIOA,
-	    	      GPIO_PIN_5, GPIO_PIN_SET);
+	    gpio_Set(LED1);
 	    HAL_Delay(500);
 
-	    HAL_GPIO_WritePin(GPIOA,
-	    	      GPIO_PIN_5, GPIO_PIN_RESET);
+	    gpio_Reset(LED1);
 	    HAL_Delay(500);
 
       ++seconds;

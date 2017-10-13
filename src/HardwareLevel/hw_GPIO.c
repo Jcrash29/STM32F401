@@ -42,6 +42,16 @@ void gpio_init_output(uint32_t gpio_id, GPIO_TypeDef* port, uint16_t pin )
 }
 
 
+void gpio_Set(uint32_t gpio_id)
+{
+  HAL_GPIO_WritePin(gpio_Array[gpio_id].port, gpio_Array[gpio_id].pin, GPIO_PIN_SET);
+}
+
+void gpio_Reset(uint32_t gpio_id)
+{
+  HAL_GPIO_WritePin(gpio_Array[gpio_id].port, gpio_Array[gpio_id].pin, GPIO_PIN_RESET);
+}
+
 
 
 
