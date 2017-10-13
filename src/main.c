@@ -32,7 +32,7 @@
 #include "diag/Trace.h"
 #include "stm32f4xx_hal.h"
 
-#include "HardwareLevel/hw_GPIO.h"
+#include "hw_Definitions.h"
 
 // ----------------------------------------------------------------------------
 //
@@ -84,7 +84,7 @@ main(int argc, char* argv[])
   /* SysTick_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
 
-  gpio_init();
+  gpio_init_output(LED1, GPIOA, GPIO_PIN_5);
 
   uint32_t seconds = 0;
 
