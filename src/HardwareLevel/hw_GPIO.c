@@ -23,6 +23,15 @@ void gpio_init()
 
 void gpio_init_output(hw_gpio_id_t gpio_id, GPIO_TypeDef* port, uint16_t pin )
 {
+  /* This simply sets most of the defaults for an output */
+  gpio_init_advanced(gpio_id, port, pin,
+		     GPIO_MODE_OUTPUT_PP, GPIO_PULLUP, GPIO_SPEED_FAST, 0);
+
+}
+
+void gpio_init_advanced(hw_gpio_id_t gpio_id, GPIO_TypeDef* port, uint16_t pin,
+			uint32_t mode, uint32_t pull, uint32_t speed, uint32_t alternate)
+{
   /* Required at the top of all function to initialize the clocks */
   if (isInitalized == false) { gpio_init(); }
 
@@ -32,9 +41,10 @@ void gpio_init_output(hw_gpio_id_t gpio_id, GPIO_TypeDef* port, uint16_t pin )
 
   /* Initialize the Structure */
   GPIO_InitStructure.Pin = pin;
-  GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStructure.Speed = GPIO_SPEED_FAST;
-  GPIO_InitStructure.Pull = GPIO_PULLUP;
+  GPIO_InitStructure.Mode = mode;
+  GPIO_InitStructure.Pull = pull;
+  GPIO_InitStructure.Speed = speed;
+  GPIO_InitStructure.Alternate = alternate;
   HAL_GPIO_Init(port, &GPIO_InitStructure);
 }
 

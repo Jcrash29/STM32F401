@@ -2,13 +2,16 @@
 #include <stdbool.h>
 #include "hw_Definitions.h"
 #include "hw_UART.h"
+#include "main.h" /* Let's change this to a hardware location */
 
 
 
 void Uart_init()
 {
+  __USART2_CLK_ENABLE();
+
   UART_HandleTypeDef huart;
-  huart.Instance = USART1;
+  huart.Instance = USART2;
   huart.Init.BaudRate = 115200;
   huart.Init.WordLength = UART_WORDLENGTH_8B;
   huart.Init.StopBits = UART_STOPBITS_1;
@@ -22,5 +25,5 @@ void Uart_init()
   }
 
 
-  HAL_UART_Transmit(&huart, (uint8_t*)"TEST BABY TEST", sizeof("TEST BABY TEST"), 1000);
+  HAL_UART_Transmit(&huart, (uint8_t*)"TEST BABY TEST", sizeof("TEST BABY TEST"), 0xFFFF);
 }

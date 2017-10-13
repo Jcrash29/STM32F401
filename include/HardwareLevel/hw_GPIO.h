@@ -8,3 +8,6 @@ void gpio_init_output(hw_gpio_id_t gpio_id, GPIO_TypeDef* port, uint16_t pin );
 void gpio_Set(hw_gpio_id_t gpio_id);
 
 void gpio_Reset(hw_gpio_id_t gpio_id);
+
+void gpio_init_advanced(hw_gpio_id_t gpio_id, GPIO_TypeDef* port, uint16_t pin,
+			uint32_t mode, uint32_t pull, uint32_t speed, uint32_t alternate);
