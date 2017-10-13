@@ -99,10 +99,10 @@ main(int argc, char* argv[])
   // Infinite loop
   while (1)
     {
-      gpio_Set(LED1);
+      Gpio_Set(LED1);
       HAL_Delay(500);
 
-      gpio_Reset(LED1);
+      Gpio_Reset(LED1);
       HAL_Delay(500);
 
       ++seconds;
