@@ -33,6 +33,7 @@
 #include "stm32f4xx_hal.h"
 
 #include "hw_Definitions.h"
+#include "hw_GPIO.h"
 
 // ----------------------------------------------------------------------------
 //
@@ -91,11 +92,11 @@ main(int argc, char* argv[])
   // Infinite loop
   while (1)
     {
-	    gpio_Set(LED1);
-	    HAL_Delay(500);
+      gpio_Set(LED1);
+      HAL_Delay(500);
 
-	    gpio_Reset(LED1);
-	    HAL_Delay(500);
+      gpio_Reset(LED1);
+      HAL_Delay(500);
 
       ++seconds;
       // Count seconds on the trace device.

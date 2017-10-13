@@ -1,10 +1,7 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "diag/Trace.h"
 #include "stm32f4xx_hal.h"
 #include <stdbool.h>
-
 #include "hw_Definitions.h"
+#include "hw_GPIO.h"
 
 /********** Global ***********/
 bool isInitalized = false; /**<Determines if the clocks have been set */
@@ -24,7 +21,7 @@ void gpio_init()
   __GPIOA_CLK_ENABLE();
 }
 
-void gpio_init_output(uint32_t gpio_id, GPIO_TypeDef* port, uint16_t pin )
+void gpio_init_output(hw_gpio_id_t gpio_id, GPIO_TypeDef* port, uint16_t pin )
 {
   /* Required at the top of all function to initialize the clocks */
   if (isInitalized == false) { gpio_init(); }
@@ -42,12 +39,12 @@ void gpio_init_output(uint32_t gpio_id, GPIO_TypeDef* port, uint16_t pin )
 }
 
 
-void gpio_Set(uint32_t gpio_id)
+void gpio_Set(hw_gpio_id_t gpio_id)
 {
   HAL_GPIO_WritePin(gpio_Array[gpio_id].port, gpio_Array[gpio_id].pin, GPIO_PIN_SET);
 }
 
-void gpio_Reset(uint32_t gpio_id)
+void gpio_Reset(hw_gpio_id_t gpio_id)
 {
   HAL_GPIO_WritePin(gpio_Array[gpio_id].port, gpio_Array[gpio_id].pin, GPIO_PIN_RESET);
 }
