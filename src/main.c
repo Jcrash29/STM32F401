@@ -108,6 +108,7 @@ main(int argc, char* argv[])
       ++seconds;
       // Count seconds on the trace device.
       trace_printf("Second %u\n", seconds);
+      uprintf(MAIN, "Second %u\n",seconds);
     }
   // Infinite loop, never return.
 }

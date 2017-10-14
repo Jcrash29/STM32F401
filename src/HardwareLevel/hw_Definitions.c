@@ -12,12 +12,17 @@ void hw_Gpio()
   Gpio_initAdvanced(UART2RX,GPIOA, GPIO_PIN_3,GPIO_MODE_AF_PP,GPIO_NOPULL,GPIO_SPEED_LOW,GPIO_AF7_USART2);
 }
 
+void hw_Uart()
+{
+  Uart_activate(MAIN, USART2);
+}
+
 
 /* Public Functions */
 void Hw_Init()
 {
   hw_Gpio();
-  Uart_init();
+  hw_Uart();
 }
 
 

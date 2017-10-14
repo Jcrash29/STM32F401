@@ -11,36 +11,36 @@
 #define OS_INTEGER_TRACE_PRINTF_TMP_ARRAY_SIZE (128)
 #endif
 
-  UART_HandleTypeDef huart;
+UART_HandleTypeDef uartStruct[HW_UART_MAX];
 
 
 void Uart_init()
 {
   __USART2_CLK_ENABLE();
+}
 
 
-  huart.Instance = USART2;
-  huart.Init.BaudRate = 115200;
-  huart.Init.WordLength = UART_WORDLENGTH_8B;
-  huart.Init.StopBits = UART_STOPBITS_1;
-  huart.Init.Parity = UART_PARITY_NONE;
-  huart.Init.Mode = UART_MODE_TX_RX;
-  huart.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-  huart.Init.OverSampling = UART_OVERSAMPLING_16;
-  if (HAL_UART_Init(&huart) != HAL_OK)
+void Uart_activate(hw_uart_id_t uartID, USART_TypeDef * uartNumber)
+{
+  Uart_init();
+
+  uartStruct[uartID].Instance = uartNumber;
+  uartStruct[uartID].Init.BaudRate = 115200;
+  uartStruct[uartID].Init.WordLength = UART_WORDLENGTH_8B;
+  uartStruct[uartID].Init.StopBits = UART_STOPBITS_1;
+  uartStruct[uartID].Init.Parity = UART_PARITY_NONE;
+  uartStruct[uartID].Init.Mode = UART_MODE_TX_RX;
+  uartStruct[uartID].Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  uartStruct[uartID].Init.OverSampling = UART_OVERSAMPLING_16;
+  if (HAL_UART_Init(&uartStruct[uartID]) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
 
-
-  HAL_UART_Transmit(&huart, (uint8_t*)"TEST BABY TEST\n\r", sizeof("TEST BABY TEST"), 0xFFFF);
-  uprintf(huart, "TEST 2 BABY\n\r");
-  uprintf(huart, "Test %d BABY\n\r", 3);
 }
 
 
-int
-uprintf(UART_HandleTypeDef  handle, const char* format, ...)
+int uprintf(hw_uart_id_t uartID, const char* format, ...)
 {
   int ret;
   va_list ap;
@@ -56,7 +56,7 @@ uprintf(UART_HandleTypeDef  handle, const char* format, ...)
   if (ret > 0)
     {
       // Transfer the buffer to the device
-      ret = HAL_UART_Transmit(&huart, (uint8_t*)buf, (size_t)ret, 0xFFFF);
+      ret = HAL_UART_Transmit(&uartStruct[uartID], (uint8_t*)buf, (size_t)ret, 0xFFFF);
     }
 
   va_end (ap);
